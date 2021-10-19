@@ -22,6 +22,10 @@ impl Vec2d {
     pub fn len(&self) -> f64 {
         (self.x * self.x + self.y * self.y).sqrt()
     }
+
+    pub fn to_arr(&self) -> [f64; 2] {
+        [self.x, self.y]
+    }
 }
 
 impl Add for Vec2d {
