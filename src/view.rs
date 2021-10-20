@@ -2,7 +2,7 @@ use std::collections::HashMap;
 use graphics::{Context, Graphics, Ellipse, Rectangle};
 use graphics::types::Color;
 use itertools::Itertools;
-use crate::engine::{Simulation, Vec2d};
+use crate::engine::{Simulation, Vec2d, Collider};
 
 pub const BLACK: Color = [0.0, 0.0, 0.1, 1.0];
 
@@ -24,13 +24,15 @@ impl Renderer {
         }
     }
 
-    pub fn draw<G: Graphics>(&self, simulation: &Simulation, c: Context, g: &mut G) {
+    pub fn draw<G: Graphics, C: Collider>(&self, simulation: &Simulation<C>, c: Context, g: &mut G) {
         use graphics::clear;
 
         clear(self.settings.background_color, g);
 
         for particle in simulation.particles() {
-            let [x, y] = (particle.pos - Vec2d::new(particle.radius, particle.radius) + self.settings.offset).to_arr();
+            let [x, y] = (
+                Vec2d::new(particle.pos.x, simulation.area().size.y - particle.pos.y) - Vec2d::new(particle.radius, particle.radius) + self.settings.offset
+            ).to_arr();
             let rect = [
                 x, y,
                 2.0 * particle.radius, 2.0 * particle.radius

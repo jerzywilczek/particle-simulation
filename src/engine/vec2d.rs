@@ -1,5 +1,5 @@
 use std::fmt::{Debug, Formatter};
-use std::ops::{Add, AddAssign, Neg, Sub, SubAssign};
+use std::ops::{Add, AddAssign, Mul, Neg, Sub, SubAssign};
 
 #[derive(Clone, Copy)]
 pub struct Vec2d {
@@ -78,6 +78,14 @@ impl Debug for Vec2d {
             .entry(&self.x)
             .entry(&self.y)
             .finish()
+    }
+}
+
+impl Mul<f64> for Vec2d {
+    type Output = Vec2d;
+
+    fn mul(self, rhs: f64) -> Self::Output {
+        Vec2d::new(self.x * rhs, self.y * rhs)
     }
 }
 

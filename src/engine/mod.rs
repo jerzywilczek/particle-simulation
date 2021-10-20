@@ -7,15 +7,17 @@ use piston::UpdateArgs;
 use rand::Rng;
 use rand::seq::IteratorRandom;
 pub use vec2d::Vec2d;
+pub use collider::{BoxCollider, Collider};
 
-pub struct Simulation {
+pub struct Simulation<C: Collider> {
     area: Area,
     particles: Vec<Particle>,
     gravity: Vec2d,
+    collider: C,
 }
 
-impl Simulation {
-    pub fn new(area_size: Vec2d, gravity: Vec2d, templates: Vec<ParticleTemplate>) -> Simulation {
+impl<C: Collider> Simulation<C> {
+    pub fn new(area_size: Vec2d, gravity: Vec2d, templates: Vec<ParticleTemplate>, collider: C) -> Simulation<C> {
         let mut rng = rand::thread_rng();
 
         let area = Area{ size: area_size };
@@ -60,6 +62,7 @@ impl Simulation {
             area,
             particles,
             gravity,
+            collider,
         }
     }
 
@@ -72,7 +75,11 @@ impl Simulation {
     }
 
     pub fn update(&mut self, args: UpdateArgs) {
-        todo!()
+        for mut particle in &mut self.particles {
+            particle.pos += particle.vel * args.dt;
+            particle.vel += self.gravity * args.dt;
+        }
+        self.collider.process_collisions(&self.area, &mut self.particles);
     }
 }
 
@@ -94,8 +101,4 @@ pub struct ParticleTemplate {
 
 pub struct Area {
     pub size: Vec2d,
-}
-
-pub trait Collider {
-    fn process_collisions(&self, area: &Area, particles: &mut Vec<Particle>);
 }

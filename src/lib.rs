@@ -1,8 +1,8 @@
 use glutin_window::GlutinWindow;
 use graphics::Graphics;
 use opengl_graphics::GlGraphics;
-use piston::{Events, RenderEvent};
-use crate::engine::{ParticleTemplate, Simulation, Vec2d};
+use piston::{Events, RenderEvent, UpdateEvent};
+use crate::engine::{BoxCollider, ParticleTemplate, Simulation, Vec2d};
 use crate::view::{BLACK, Renderer, RendererSettings};
 
 mod engine;
@@ -11,15 +11,16 @@ mod view;
 pub fn run<>(mut window: GlutinWindow, mut events: Events, mut gl: GlGraphics) {
     let mut simulation = Simulation::new(
         Vec2d::new(400.0, 400.0),
-        Vec2d::new(0.0, 0.0),
+        Vec2d::new(0.0, -100.0),
         vec![
             ParticleTemplate {
                 radius: 10.0,
-                vel: 10.0,
+                vel: 50.0,
                 color: [1.0, 0.0, 0.0, 1.0],
                 count: 10
             }
-        ]
+        ],
+        BoxCollider
     );
 
     let renderer = Renderer::new(RendererSettings {
@@ -34,6 +35,10 @@ pub fn run<>(mut window: GlutinWindow, mut events: Events, mut gl: GlGraphics) {
             gl.draw(args.viewport(), |c, g| {
                 renderer.draw(&simulation, c, g);
             });
+        }
+
+        if let Some(args) = e.update_args() {
+            simulation.update(args);
         }
     }
 }
