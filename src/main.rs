@@ -16,6 +16,7 @@ fn main() {
         .graphics_api(opengl)
         .exit_on_esc(true)
         .samples(8)
+        .vsync(true)
         .build()
         .expect("Couldn't create window");
 
