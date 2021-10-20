@@ -4,7 +4,28 @@ use graphics::types::Color;
 use itertools::Itertools;
 use crate::engine::{Simulation, Vec2d, Collider};
 
-pub const BLACK: Color = [0.0, 0.0, 0.1, 1.0];
+
+pub mod colors {
+    use graphics::types::Color;
+
+    /// This is very sketchy but it works
+    macro_rules! hex {
+        ($color:expr) => {[
+            (($color & 0xff0000) >> 16) as f32 / 256.0,
+            (($color & 0x00ff00) >> 8) as f32 / 256.0,
+            (($color & 0x0000ff) >> 0) as f32 / 256.0,
+            1.0
+        ]};
+    }
+
+    pub const BLACK: Color = [0.0, 0.0, 0.1, 1.0];
+    pub const STEEL_BLUE: Color = hex!(0x2D7F9D);
+    pub const LIGHT_STEEL_BLUE: Color = hex!(0xA4C9D7);
+    pub const LIGHTER_STEEL_BLUE: Color = hex!(0xEAF2F4);
+    pub const BURLY_WOOD: Color = hex!(0xE4CA99);
+    pub const PALE_VIOLET_RED: Color = hex!(0xDC7684);
+}
+
 
 pub struct RendererSettings {
     pub offset: Vec2d,
