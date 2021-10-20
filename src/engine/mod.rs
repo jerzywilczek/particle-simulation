@@ -2,6 +2,7 @@
 mod vec2d;
 mod collider;
 
+use std::f64::consts::PI;
 use graphics::types::Color;
 use piston::UpdateArgs;
 use rand::Rng;
@@ -40,14 +41,14 @@ impl<C: Collider> Simulation<C> {
             .flatten()
             .choose_multiple(&mut rng, count).iter()
             .map(|(i, j)| {
-                Vec2d::new(*i as f64 * (area_size.x / width as f64) + max_size, *j as f64 * (area_size.y / width as f64) + max_size)
+                Vec2d::new(*i as f64 * (area_size.x / width as f64) + max_size, *j as f64 * (area_size.y / height as f64) + max_size)
             }).collect();
         let mut positions = positions.iter();
 
         let mut particles = Vec::with_capacity(count);
         for pt in templates {
             for _ in 0..pt.count {
-                let rad: f64 = rng.gen();
+                let rad = rng.gen::<f64>() * 2.0 * PI - PI;
                 particles.push(Particle {
                     pos: *positions.next().expect("Box is not big enough for all particles"),
                     radius: pt.radius,
