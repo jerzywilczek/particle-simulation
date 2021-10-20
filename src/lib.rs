@@ -3,7 +3,8 @@ use graphics::Graphics;
 use opengl_graphics::GlGraphics;
 use piston::{Events, RenderEvent, UpdateEvent};
 use crate::engine::{BoxCollider, ParticleTemplate, Simulation, Vec2d};
-use crate::view::{BLACK, Renderer, RendererSettings};
+use crate::view::{Renderer, RendererSettings};
+use crate::view::colors::*;
 
 mod engine;
 mod view;
@@ -26,7 +27,7 @@ pub fn run<>(mut window: GlutinWindow, mut events: Events, mut gl: GlGraphics) {
     let renderer = Renderer::new(RendererSettings {
         offset: Vec2d::new(10.0, 10.0),
         background_color: BLACK,
-        border_color: [0.0, 0.0, 1.0, 1.0],
+        border_color: STEEL_BLUE,
         border_size: 2.0,
     });
 
