@@ -10,7 +10,7 @@ use piston::{EventLoop, Events, EventSettings, WindowSettings};
 fn main() {
     let opengl = OpenGL::V3_2;
 
-    const WINDOW_SIZE: [u32; 2] = [512, 512];
+    const WINDOW_SIZE: [u32; 2] = [1280, 720];
 
     let window: GlutinWindow = WindowSettings::new("Particle simulation", WINDOW_SIZE)
         .graphics_api(opengl)

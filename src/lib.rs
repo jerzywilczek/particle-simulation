@@ -1,6 +1,6 @@
 use glutin_window::GlutinWindow;
 use opengl_graphics::GlGraphics;
-use piston::{Events, RenderEvent, UpdateEvent};
+use piston::{Events, RenderEvent, UpdateEvent, Window};
 use crate::engine::{SweepCollider, ParticleTemplate, Simulation, Vec2d, BoxCollider};
 use crate::view::{Renderer, RendererSettings};
 use crate::view::colors::*;
@@ -9,8 +9,9 @@ mod engine;
 mod view;
 
 pub fn run<>(mut window: GlutinWindow, mut events: Events, mut gl: GlGraphics) {
+    let [w, h] = <[f64; 2]>::from(window.size());
     let mut simulation = Simulation::new(
-        Vec2d::new(400.0, 400.0),
+        Vec2d::new(w - 20.0, h - 20.0),
         Vec2d::new(0.0, 0.0),
         vec![
             ParticleTemplate {
@@ -19,12 +20,12 @@ pub fn run<>(mut window: GlutinWindow, mut events: Events, mut gl: GlGraphics) {
                 color: PALE_VIOLET_RED,
                 count: 50
             },
-            // ParticleTemplate {
-            //     radius: 25.0,
-            //     vel: 50.0,
-            //     color: BURLY_WOOD,
-            //     count: 5
-            // }
+            ParticleTemplate {
+                radius: 5.0,
+                vel: 200.0,
+                color: BURLY_WOOD,
+                count: 50
+            }
         ],
         SweepCollider::new(BoxCollider),
     );
