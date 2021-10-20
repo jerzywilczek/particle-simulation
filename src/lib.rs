@@ -2,15 +2,37 @@ use glutin_window::GlutinWindow;
 use graphics::Graphics;
 use opengl_graphics::GlGraphics;
 use piston::{Events, RenderEvent};
+use crate::engine::{ParticleTemplate, Simulation, Vec2d};
+use crate::view::{BLACK, Renderer, RendererSettings};
 
 mod engine;
 mod view;
 
-pub fn run<G: Graphics>(mut window: GlutinWindow, mut events: Events, mut gl: G) {
+pub fn run<>(mut window: GlutinWindow, mut events: Events, mut gl: GlGraphics) {
+    let mut simulation = Simulation::new(
+        Vec2d::new(400.0, 400.0),
+        Vec2d::new(0.0, 0.0),
+        vec![
+            ParticleTemplate {
+                radius: 10.0,
+                vel: 10.0,
+                color: [1.0, 0.0, 0.0, 1.0],
+                count: 10
+            }
+        ]
+    );
+
+    let renderer = Renderer::new(RendererSettings {
+        offset: Vec2d::new(10.0, 10.0),
+        background_color: BLACK,
+        border_color: [0.0, 0.0, 1.0, 1.0],
+        border_size: 2.0,
+    });
+
     while let Some(e) = events.next(&mut window) {
         if let Some(args) = e.render_args() {
             gl.draw(args.viewport(), |c, g| {
-
+                renderer.draw(&simulation, c, g);
             });
         }
     }
