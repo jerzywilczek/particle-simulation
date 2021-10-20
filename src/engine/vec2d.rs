@@ -12,19 +12,8 @@ impl Vec2d {
         Vec2d { x, y }
     }
 
-    pub fn from_arr(arr: [f64; 2]) -> Vec2d {
-        Vec2d {
-            x: arr[0],
-            y: arr[1],
-        }
-    }
-
     pub fn len(&self) -> f64 {
         (self.x * self.x + self.y * self.y).sqrt()
-    }
-
-    pub fn to_arr(&self) -> [f64; 2] {
-        [self.x, self.y]
     }
 }
 
@@ -94,6 +83,18 @@ impl Div<f64> for Vec2d {
 
     fn div(self, rhs: f64) -> Self::Output {
         Vec2d::new(self.x / rhs, self.y / rhs)
+    }
+}
+
+impl From<[f64; 2]> for Vec2d {
+    fn from([x, y]: [f64; 2]) -> Self {
+        Vec2d::new(x, y)
+    }
+}
+
+impl From<Vec2d> for [f64; 2] {
+    fn from(v: Vec2d) -> Self {
+        [v.x, v.y]
     }
 }
 

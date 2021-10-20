@@ -16,10 +16,8 @@ pub mod colors {
         ]};
     }
 
-    pub const BLACK: Color = [0.0, 0.0, 0.1, 1.0];
     pub const STEEL_BLUE: Color = hex!(0x2D7F9D);
     pub const LIGHT_STEEL_BLUE: Color = hex!(0xA4C9D7);
-    pub const LIGHTER_STEEL_BLUE: Color = hex!(0xEAF2F4);
     pub const BURLY_WOOD: Color = hex!(0xE4CA99);
     pub const PALE_VIOLET_RED: Color = hex!(0xDC7684);
 }
@@ -60,9 +58,9 @@ impl Renderer {
         clear(self.settings.background_color, g);
 
         for particle in simulation.particles() {
-            let [x, y] = (
+            let [x, y] = <[f64; 2]>::from(
                 Vec2d::new(particle.pos.x, simulation.area().size.y - particle.pos.y) - Vec2d::new(particle.radius, particle.radius) + self.settings.offset
-            ).to_arr();
+            );
             let rect = [
                 x, y,
                 2.0 * particle.radius, 2.0 * particle.radius
