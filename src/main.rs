@@ -15,6 +15,7 @@ fn main() {
     let window: GlutinWindow = WindowSettings::new("Particle simulation", WINDOW_SIZE)
         .graphics_api(opengl)
         .exit_on_esc(true)
+        .samples(8)
         .build()
         .expect("Couldn't create window");
 
