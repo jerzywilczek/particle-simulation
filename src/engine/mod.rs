@@ -7,7 +7,7 @@ use piston::UpdateArgs;
 use rand::Rng;
 use rand::seq::IteratorRandom;
 pub use vec2d::Vec2d;
-pub use collider::{BoxCollider, Collider};
+pub use collider::{BoxCollider, Collider, SweepCollider};
 
 pub struct Simulation<C: Collider> {
     area: Area,
@@ -49,7 +49,7 @@ impl<C: Collider> Simulation<C> {
             for _ in 0..pt.count {
                 let rad: f64 = rng.gen();
                 particles.push(Particle {
-                    pos: *positions.next().unwrap(),
+                    pos: *positions.next().expect("Box is not big enough for all particles"),
                     radius: pt.radius,
                     color: pt.color,
                     vel: Vec2d::new(pt.vel * rad.sin(), pt.vel * rad.cos()),
@@ -75,7 +75,7 @@ impl<C: Collider> Simulation<C> {
     }
 
     pub fn update(&mut self, args: UpdateArgs) {
-        for mut particle in &mut self.particles {
+        for particle in &mut self.particles {
             particle.pos += particle.vel * args.dt;
             particle.vel += self.gravity * args.dt;
         }

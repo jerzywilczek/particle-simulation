@@ -1,7 +1,5 @@
-use std::collections::HashMap;
 use graphics::{Context, Graphics, Ellipse, Rectangle};
 use graphics::types::Color;
-use itertools::Itertools;
 use crate::engine::{Simulation, Vec2d, Collider};
 
 
@@ -32,6 +30,17 @@ pub struct RendererSettings {
     pub background_color: Color,
     pub border_color: Color,
     pub border_size: f64,
+}
+
+impl RendererSettings {
+    pub fn new() -> RendererSettings {
+        RendererSettings {
+            offset: Vec2d::new(10.0, 10.0),
+            background_color: colors::LIGHT_STEEL_BLUE,
+            border_color: colors::STEEL_BLUE,
+            border_size: 2.0
+        }
+    }
 }
 
 pub struct Renderer {

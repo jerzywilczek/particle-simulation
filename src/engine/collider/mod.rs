@@ -1,5 +1,9 @@
 use crate::engine::{Area, Particle};
 
+mod sweep_collider;
+
+pub use sweep_collider::SweepCollider;
+
 pub trait Collider {
     fn process_collisions(&self, area: &Area, particles: &mut Vec<Particle>);
 }
