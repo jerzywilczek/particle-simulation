@@ -47,13 +47,14 @@ impl<C: CollisionDetector> Simulation<C> {
                 ));
             }
         }
-        let mut positions = positions.iter().choose_multiple(&mut rng, count);
+        let positions = positions.iter().choose_multiple(&mut rng, count);
+        let mut positions = positions.iter();
 
         let mut particles = Vec::with_capacity(count);
         'outer: for pt in templates {
-            for _ in (0..pt.count).zip() {
+            for _ in 0..pt.count {
                 let rad = rng.gen::<f64>() * 2.0 * PI - PI;
-                if let Some(pos) = *positions.next() {
+                if let Some(&&pos) = positions.next() {
                     particles.push(Particle {
                         pos,
                         radius: pt.radius,

@@ -12,20 +12,20 @@ pub fn run(mut window: GlutinWindow, mut events: Events, mut gl: GlGraphics) {
     let [w, h] = <[f64; 2]>::from(window.size());
     let mut simulation = Simulation::new(
         Vec2d::new(w - 20.0, h - 20.0),
-        Vec2d::new(0.0, -100.0),
+        Vec2d::new(0.0, 0.0),
         vec![
             ParticleTemplate {
                 radius: 10.0,
                 vel: 50.0,
                 color: PALE_VIOLET_RED,
-                count: 200
+                count: 50
             },
-            // ParticleTemplate {
-            //     radius: 15.0,
-            //     vel: 200.0,
-            //     color: BURLY_WOOD,
-            //     count: 20
-            // }
+            ParticleTemplate {
+                radius: 15.0,
+                vel: 200.0,
+                color: BURLY_WOOD,
+                count: 20
+            }
         ],
         SweepCollider::new(BasicCollisionProcessor, BoxCollider::new(BasicCollisionProcessor)),
     );
