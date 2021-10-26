@@ -1,6 +1,6 @@
 use graphics::{Context, Graphics, Ellipse, Rectangle};
 use graphics::types::Color;
-use crate::engine::{Simulation, Vec2d, Collider};
+use crate::engine::{Simulation, Vec2d, CollisionDetector};
 
 
 pub mod colors {
@@ -52,7 +52,7 @@ impl Renderer {
         }
     }
 
-    pub fn draw<G: Graphics, C: Collider>(&self, simulation: &Simulation<C>, c: Context, g: &mut G) {
+    pub fn draw<G: Graphics, C: CollisionDetector>(&self, simulation: &Simulation<C>, c: Context, g: &mut G) {
         use graphics::clear;
 
         clear(self.settings.background_color, g);

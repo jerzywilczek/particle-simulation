@@ -8,16 +8,16 @@ use piston::UpdateArgs;
 use rand::Rng;
 use rand::seq::IteratorRandom;
 pub use vec2d::Vec2d;
-pub use collider::{BoxCollider, Collider, SweepCollider};
+pub use collider::{BoxCollider, CollisionDetector, SweepCollider, BasicCollisionProcessor};
 
-pub struct Simulation<C: Collider> {
+pub struct Simulation<C: CollisionDetector> {
     area: Area,
     particles: Vec<Particle>,
     gravity: Vec2d,
     collider: C,
 }
 
-impl<C: Collider> Simulation<C> {
+impl<C: CollisionDetector> Simulation<C> {
     pub fn new(area_size: Vec2d, gravity: Vec2d, templates: Vec<ParticleTemplate>, collider: C) -> Simulation<C> {
         let mut rng = rand::thread_rng();
 
