@@ -17,6 +17,7 @@ fn main() {
         .exit_on_esc(true)
         .samples(8)
         .vsync(true)
+        .resizable(false)
         .build()
         .expect("Couldn't create window");
 
