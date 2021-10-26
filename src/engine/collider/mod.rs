@@ -44,8 +44,8 @@ pub trait CollisionProcessor {
             Collision::Particle(p1, p2) => {
                 let m1 = p1.radius * p1.radius;
                 let m2 = p2.radius * p2.radius;
-                let v1 = (p1.vel * (m1 - m2) + p2.vel * 2.0 * m2) / (m1 + m2);
-                let v2 = (p2.vel * (m2 - m1) + p1.vel * 2.0 * m1) / (m1 + m2);
+                let v1 = (p1.vel * (m1 - m2) + 2.0 * m2 * p2.vel) / (m1 + m2);
+                let v2 = (p2.vel * (m2 - m1) + 2.0 * m1 * p1.vel) / (m1 + m2);
                 p1.vel = v1;
                 p2.vel = v2;
             }

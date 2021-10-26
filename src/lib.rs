@@ -8,7 +8,7 @@ use crate::view::colors::*;
 mod engine;
 mod view;
 
-pub fn run<>(mut window: GlutinWindow, mut events: Events, mut gl: GlGraphics) {
+pub fn run(mut window: GlutinWindow, mut events: Events, mut gl: GlGraphics) {
     let [w, h] = <[f64; 2]>::from(window.size());
     let mut simulation = Simulation::new(
         Vec2d::new(w - 20.0, h - 20.0),

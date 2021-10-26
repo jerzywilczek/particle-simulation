@@ -2,16 +2,19 @@ use std::fmt::{Debug, Formatter};
 use std::ops::{Add, AddAssign, Div, Mul, Neg, Sub, SubAssign};
 
 #[derive(Clone, Copy)]
+/// A struct implementing a 2d vector, which supports all basic operations
 pub struct Vec2d {
     pub x: f64,
     pub y: f64,
 }
 
 impl Vec2d {
+    /// Creates a new Vec2d
     pub fn new(x: f64, y: f64) -> Vec2d {
         Vec2d { x, y }
     }
 
+    /// Calculates the length of a Vec2d
     pub fn len(&self) -> f64 {
         (self.x * self.x + self.y * self.y).sqrt()
     }
@@ -75,6 +78,14 @@ impl Mul<f64> for Vec2d {
 
     fn mul(self, rhs: f64) -> Self::Output {
         Vec2d::new(self.x * rhs, self.y * rhs)
+    }
+}
+
+impl Mul<Vec2d> for f64 {
+    type Output = Vec2d;
+
+    fn mul(self, rhs: Vec2d) -> Self::Output {
+        return rhs * self;
     }
 }
 

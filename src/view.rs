@@ -22,8 +22,9 @@ pub mod colors {
     pub const PALE_VIOLET_RED: Color = hex!(0xDC7684);
 }
 
-
+/// A struct for holding settings for the renderer
 pub struct RendererSettings {
+    /// Offset from the top-left corner
     pub offset: Vec2d,
     pub background_color: Color,
     pub border_color: Color,
@@ -31,6 +32,7 @@ pub struct RendererSettings {
 }
 
 impl RendererSettings {
+    /// Creates the struct with default settings
     pub fn new() -> RendererSettings {
         RendererSettings {
             offset: Vec2d::new(10.0, 10.0),
@@ -41,22 +43,27 @@ impl RendererSettings {
     }
 }
 
+/// Does rendering
 pub struct Renderer {
     settings: RendererSettings,
 }
 
 impl Renderer {
+    /// Creates a new Renderer
     pub fn new(settings: RendererSettings) -> Renderer {
         Renderer {
             settings,
         }
     }
 
+    /// Draws the simulation on screen
     pub fn draw<G: Graphics, C: CollisionDetector>(&self, simulation: &Simulation<C>, c: Context, g: &mut G) {
         use graphics::clear;
 
+        // clear the screen
         clear(self.settings.background_color, g);
 
+        // draw particles
         for particle in simulation.particles() {
             let [x, y] = <[f64; 2]>::from(
                 Vec2d::new(particle.pos.x, simulation.area().size.y - particle.pos.y) - Vec2d::new(particle.radius, particle.radius) + self.settings.offset
@@ -69,6 +76,7 @@ impl Renderer {
             Ellipse::new(particle.color).draw(rect, &c.draw_state, c.transform, g);
         }
 
+        // draw the box
         Rectangle::new_border(self.settings.border_color, self.settings.border_size)
             .draw(
                 [
