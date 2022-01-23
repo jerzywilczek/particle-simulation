@@ -60,7 +60,7 @@ impl<C: CollisionDetector> Simulation<C> {
                         radius: pt.radius,
                         color: pt.color,
                         vel: Vec2d::new(pt.vel * rad.sin(), pt.vel * rad.cos()),
-                        acc: Vec2d::new(0.0, 0.0),
+                        // acc: Vec2d::new(0.0, 0.0),
                     });
                 } else {
                     break 'outer;
@@ -103,7 +103,7 @@ pub struct Particle {
     pub radius: f64,
     pub color: Color,
     vel: Vec2d,
-    acc: Vec2d,
+    // acc: Vec2d,
 }
 
 /// Struct for describing a kind of particles which will be spawned in the simulation

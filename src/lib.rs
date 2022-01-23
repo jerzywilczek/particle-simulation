@@ -5,7 +5,7 @@ use crate::engine::{SweepCollider, ParticleTemplate, Simulation, Vec2d, BoxColli
 use crate::view::{Renderer, RendererSettings};
 use crate::view::colors::*;
 
-mod engine;
+pub mod engine;
 mod view;
 
 pub fn run(mut window: GlutinWindow, mut events: Events, mut gl: GlGraphics) {
