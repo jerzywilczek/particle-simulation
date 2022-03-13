@@ -1,13 +1,12 @@
 # particle-simulation
-Ball physics simulator  
+Ball physics simulator based on fully elastic collisions and a sweep line algorithm for collision detection.
 
 ## Compiling and running
 
-You have to have [rustc and cargo](https://www.rust-lang.org/tools/install) installed, then clone this repository and run
+First, you have to [install rustc and cargo](https://www.rust-lang.org/tools/install). Then clone this repository, navigate to the cloned folder and run
 ```
 cargo run --release
 ```
-inside the cloned folder.
 
 ## Configuration
 
